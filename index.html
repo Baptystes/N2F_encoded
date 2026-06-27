@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>N2F Autopilot</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 640px; margin: 4rem auto; padding: 0 1.25rem;
+      line-height: 1.6; color: #18181b;
+    }
+    h1 { font-size: 2rem; margin-bottom: .25rem; }
+    .lead { color: #52525b; margin-top: 0; }
+    .about {
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 12px;
+      padding: .9rem 1.1rem; color: #3730a3; font-size: .95rem;
+    }
+    .btn {
+      display: inline-block; margin: 1.5rem 0;
+      padding: .85rem 1.5rem; background: #4f46e5; color: #fff;
+      border-radius: 12px; text-decoration: none; font-weight: 600;
+      font-size: 1.05rem; cursor: grab; user-select: none;
+      box-shadow: 0 4px 14px rgba(79,70,229,.35);
+    }
+    .btn:active { cursor: grabbing; }
+    ol { background: #f4f4f5; padding: 1rem 1rem 1rem 2.75rem; border-radius: 12px; }
+    kbd {
+      background: #e4e4e7; border-radius: 5px; padding: .1rem .4rem;
+      font-size: .85em; border: 1px solid #d4d4d8;
+    }
+    .note { color: #71717a; font-size: .9rem; }
+    @media (prefers-color-scheme: dark) {
+      body { color: #e4e4e7; }
+      .lead { color: #a1a1aa; }
+      ol { background: #27272a; }
+      kbd { background: #3f3f46; border-color: #52525b; }
+      .note { color: #a1a1aa; }
+      .about { background: #1e1b4b; border-color: #3730a3; color: #c7d2fe; }
+    }
+  </style>
+</head>
+<body>
+  <h1>🦄 N2F Autopilot</h1>
+  <p class="lead">Glisse le bouton dans ta barre de favoris, puis clique dessus quand tu es sur N2F.</p>
+
+  <p class="about">
+    <strong>N2F Autopilot</strong> remplit automatiquement tes dépenses dans N2F à partir de ton
+    <strong>relevé d'activité validé</strong> sur SIMUS. Il détecte les jours de
+    <strong>télétravail</strong> et de <strong>déplacement</strong>, te montre un aperçu, et crée les
+    dépenses (TT, IKMD, abonnement transport) pour toi : fini la saisie une par une.
+  </p>
+
+  <!-- L'utilisateur GLISSE ce lien vers sa barre de favoris (un clic ne fait rien).
+       Bookmarklet IDENTIQUE à celui généré par le module (updateBookmarkletLink),
+       mais avec une config VIDE : le nouvel utilisateur la remplit dans le panneau
+       N2F puis re-sauvegarde en glissant le bouton 📌. CONFIG_VERSION doit rester
+       aligné sur SCRIPT_VERSION de script_console.js. -->
+  <a class="btn"
+     href="javascript:(async()=>{const h=location.hostname;if(/simus\.fr$/i.test(h)){try{const html=document.documentElement.outerHTML;await navigator.clipboard.writeText(html);alert('✅ HTML SIMUS copié ('+Math.round(html.length/1024)+' Ko) — retourne dans N2F et colle-le');}catch(e){prompt('Copie manuelle (Ctrl+C puis Entrée)',document.documentElement.outerHTML);}return;}if(/n2f/i.test(h)){window.DEFAULT_SETTINGS={CONFIG_VERSION:2,TT_AMOUNT:'2.5',ENABLE_TT:true,ENABLE_IKMD:false,ENABLE_TRANSPORT:false,MISSIONS_TABLE:[],FAVORITE_TRIPS:[],DEFAULT_TRIP:'',PROJECT_CODE:''};try{const r=await fetch('https://raw.githubusercontent.com/Baptystes/N2F_encoded/refs/heads/main/script.js?t='+Date.now());if(!r.ok)throw new Error('HTTP '+r.status);const code=await r.text();const s=document.createElement('script');s.textContent='(function(){'+code+'\n})();';document.body.appendChild(s);}catch(err){alert('Erreur: '+err.message);}}else if(/github\.io$/i.test(h))alert('🦄 Presque ! Suis les indications de cette page pour l\'installer 😉');else alert('🦄 N2F Autopilot est bien installé ! Pour t\'en servir, ouvre N2F (une note de frais) ou SIMUS (un relevé), puis reclique sur le favori 🚀');})();"
+     title="Glisse-moi vers ta barre de favoris">
+    🦄 N2F Autopilot
+  </a>
+
+  <ol>
+    <li><strong>Affiche ta barre de favoris</strong> si elle est masquée : <kbd>Ctrl</kbd>+<kbd>Maj</kbd>+<kbd>B</kbd> (Windows) ou <kbd>Cmd</kbd>+<kbd>Maj</kbd>+<kbd>B</kbd> (Mac). C'est la rangée de raccourcis sous la barre d'adresse.</li>
+    <li><strong>Glisse le bouton violet</strong> ci-dessus jusque dans cette barre, puis relâche : un favori <strong>🦄 N2F Autopilot</strong> apparaît.</li>
+    <li><strong>Ouvre N2F</strong> sur la page d'une note de frais, puis <strong>clique sur le favori</strong> : le panneau N2F Autopilot s'ouvre.</li>
+  </ol>
+
+  <p class="note">
+    Un simple clic sur le bouton ci-dessus ne fait rien : il faut le <strong>glisser</strong> dans la barre de favoris.
+  </p>
+</body>
+</html>
