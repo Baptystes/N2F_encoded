@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>N2F Autopilot</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --indigo: #4f46e5;
+      --indigo-dark: #3730a3;
+      --ink: #18181b;
+      --muted: #52525b;
+      --soft: #f4f4f5;
+      --line: #e4e4e7;
+      --tint: #eef2ff;
+      --tint-border: #c7d2fe;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 640px; margin: 0 auto; padding: 3.5rem 1.25rem 4rem;
+      line-height: 1.6; color: var(--ink);
+    }
+
+    /* ---- Hero ---- */
+    .hero { text-align: center; margin-bottom: 2.5rem; }
+    .hero .logo { font-size: 3rem; line-height: 1; }
+    h1 { font-size: 2.1rem; margin: .5rem 0 .35rem; }
+    .lead { color: var(--muted); margin: 0; font-size: 1.1rem; }
+
+    /* ---- What it does ---- */
+    .about {
+      background: var(--tint); border: 1px solid var(--tint-border); border-radius: 14px;
+      padding: 1.1rem 1.25rem; color: var(--indigo-dark); font-size: .97rem;
+      margin-bottom: 2.75rem;
+    }
+    .about p { margin: 0; }
+    .about ul { margin: .65rem 0 0; padding-left: 1.2rem; }
+    .about li { margin: .15rem 0; }
+    .about-how {
+      margin: .9rem 0 0 !important; padding-top: .9rem;
+      border-top: 1px solid var(--tint-border);
+    }
+
+    /* ---- Section titles ---- */
+    h2 {
+      font-size: 1.3rem; margin: 0 0 1.1rem;
+      display: flex; align-items: center; gap: .55rem;
+    }
+    .step-since { font-size: .85rem; font-weight: 400; color: var(--muted); }
+
+    /* ---- Steps ---- */
+    .steps { list-style: none; margin: 0 0 2.75rem; padding: 0; counter-reset: step; }
+    .step {
+      position: relative; padding: 0 0 1.5rem 3.25rem; counter-increment: step;
+    }
+    .step:not(:last-child)::after {
+      content: ""; position: absolute; left: 1.1rem; top: 2.6rem; bottom: .25rem;
+      width: 2px; background: var(--line);
+    }
+    .step::before {
+      content: counter(step); position: absolute; left: 0; top: 0;
+      width: 2.25rem; height: 2.25rem; border-radius: 50%;
+      background: var(--indigo); color: #fff; font-weight: 700; font-size: 1.05rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step h3 { margin: .15rem 0 .35rem; font-size: 1.05rem; }
+    .step p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+    /* ---- Drag button ---- */
+    .drag-zone {
+      margin: .9rem 0 .25rem; padding: 1.25rem; text-align: center;
+      background: var(--soft); border: 2px dashed var(--tint-border); border-radius: 14px;
+    }
+    .btn {
+      display: inline-block;
+      padding: .85rem 1.6rem; background: var(--indigo); color: #fff;
+      border-radius: 12px; text-decoration: none; font-weight: 600;
+      font-size: 1.1rem; cursor: grab; user-select: none;
+      box-shadow: 0 6px 18px rgba(79,70,229,.4);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(79,70,229,.5); }
+    .btn:active { cursor: grabbing; transform: translateY(0); }
+    .drag-hint {
+      margin: .7rem 0 0; font-size: .85rem; color: var(--muted);
+      display: flex; align-items: center; justify-content: center; gap: .4rem;
+    }
+
+    kbd {
+      background: var(--line); border-radius: 5px; padding: .1rem .4rem;
+      font-size: .85em; border: 1px solid #d4d4d8; white-space: nowrap;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #e4e4e7; --muted: #a1a1aa; --soft: #27272a; --line: #3f3f46;
+        --tint: #1e1b4b; --tint-border: #3730a3; --indigo-dark: #c7d2fe;
+      }
+      kbd { background: #3f3f46; border-color: #52525b; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="logo">🦄</div>
+    <h1>N2F Autopilot</h1>
+    <p class="lead">Tes notes de frais N2F remplies toutes seules.</p>
+  </header>
+
+  <section class="about">
+    <p>
+      À partir de ton <strong>relevé d'activité validé</strong> sur SIMUS, N2F Autopilot détecte tes
+      jours de télétravail et sur site, puis crée tes dépenses dans N2F à ta place, par exemple :
+    </p>
+    <ul>
+      <li>🏠 Télétravail (TT)</li>
+      <li>🚴 Indemnités kilométriques mobilité durable (IKMD)</li>
+    </ul>
+    <p class="about-how">
+      ✨ Concrètement, le module <strong>prend la main sur N2F</strong> et fait les saisies à ta place,
+      comme s'il bougeait la souris et tapait au clavier pour toi. Tu n'as qu'à le regarder travailler.
+    </p>
+  </section>
+
+  <h2>📌 Installation</h2>
+  <ol class="steps">
+    <li class="step">
+      <h3>Affiche ta barre de favoris</h3>
+      <p>Si elle est masquée : <kbd>Ctrl</kbd>+<kbd>Maj</kbd>+<kbd>B</kbd> (Windows) ou <kbd>Cmd</kbd>+<kbd>Maj</kbd>+<kbd>B</kbd> (Mac). C'est la rangée de raccourcis sous la barre d'adresse.</p>
+    </li>
+    <li class="step">
+      <h3>Glisse le bouton dans cette barre</h3>
+      <p>Attrape le bouton ci-dessous et fais-le glisser jusque dans ta barre de favoris, puis relâche. Un favori 🦄 N2F Autopilot apparaît.</p>
+      <div class="drag-zone">
+        <!-- L'utilisateur GLISSE ce lien vers sa barre de favoris (un clic ne fait rien).
+             Bookmarklet IDENTIQUE à celui généré par le module (updateBookmarkletLink),
+             mais avec une config VIDE : le nouvel utilisateur la remplit dans le panneau
+             N2F puis re-sauvegarde en glissant le bouton 📌. CONFIG_VERSION doit rester
+             aligné sur SCRIPT_VERSION de script_console.js. -->
+        <a class="btn"
+           href="javascript:(async()=>{const h=location.hostname;if(/simus\.fr$/i.test(h)){try{const html=document.documentElement.outerHTML;await navigator.clipboard.writeText(html);alert('✅ HTML SIMUS copié ('+Math.round(html.length/1024)+' Ko) — retourne dans N2F et colle-le');}catch(e){prompt('Copie manuelle (Ctrl+C puis Entrée)',document.documentElement.outerHTML);}return;}if(/n2f/i.test(h)){window.DEFAULT_SETTINGS={CONFIG_VERSION:2,ENABLE_TT:true,ENABLE_IKMD:false,ENABLE_TRANSPORT:false,MISSIONS_TABLE:[],FAVORITE_TRIPS:[],DEFAULT_TRIP:'',PROJECT_CODE:''};try{const r=await fetch('https://raw.githubusercontent.com/Baptystes/N2F_encoded/refs/heads/main/script.js?t='+Date.now());if(!r.ok)throw new Error('HTTP '+r.status);const code=await r.text();const s=document.createElement('script');s.textContent='(function(){'+code+'\n})();';document.body.appendChild(s);}catch(err){alert('Erreur: '+err.message);}}else if(/github\.io$/i.test(h))alert('🦄 Presque ! Suis les indications de cette page pour l\'installer 😉');else alert('🦄 N2F Autopilot est bien installé ! Pour t\'en servir, ouvre N2F (une note de frais) ou SIMUS (un relevé), puis reclique sur le favori 🚀');})();"
+           title="Glisse-moi vers ta barre de favoris">
+          🦄 N2F Autopilot
+        </a>
+        <p class="drag-hint">👆 Glisse-moi, ne me clique pas</p>
+      </div>
+    </li>
+    <li class="step">
+      <h3>Ouvre N2F et clique sur le favori</h3>
+      <p>Va sur la page d'une note de frais dans N2F, puis clique sur le favori 🦄 N2F Autopilot : le panneau s'ouvre. Ensuite, <strong>laisse-toi guider par le module</strong>, il t'explique chaque étape.</p>
+    </li>
+  </ol>
+</body>
+</html>
